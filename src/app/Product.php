@@ -11,6 +11,11 @@ class Product extends Model {
 	protected $table = 'products';
 	public $timestamps = true;
 
+    public $translatedAttributes = ['name'];
+    protected $fillable = ['name', 'category_id','currency_id', 'external_currency_id', 'partner_id', 'partner_transport_id', 'barcode', 'cost', 'price', 'no_invoice_price', 'printed'];
+
+    use \Dimsav\Translatable\Translatable;
+
     use Sluggable, SluggableScopeHelpers;
     public function sluggable(){
         return [

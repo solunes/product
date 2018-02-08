@@ -9,19 +9,20 @@ class ProductGroup extends Model {
 	protected $table = 'product_groups';
 	public $timestamps = false;
 
+	public $translatedAttributes = ['name'];
+    protected $fillable = ['name'];
+
+    use \Dimsav\Translatable\Translatable;
 	/* Creating rules */
 	public static $rules_create = array(
-		'parent_id'=>'required',
+		
 		'name'=>'required',
-		'image'=>'required',
 	);
 
 	/* Updating rules */
 	public static $rules_edit = array(
 		'id'=>'required',
-		'parent_id'=>'required',
 		'name'=>'required',
-		'image'=>'required',
 	);
 	
 }

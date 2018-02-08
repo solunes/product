@@ -9,29 +9,22 @@ class ProductBenefit extends Model {
 	protected $table = 'product_benefits';
 	public $timestamps = false;
 
-	/* Transfer rules */
-	public static $rules_transfer = array(
-		'product_stock_id'=>'required',
-		'place_id'=>'required',
-	);
+	public $translatedAttributes = ['name'];
+    protected $fillable = ['name', 'parent_id'];
 
-	/* Remove rules */
-	public static $rules_remove = array(
-		'product_stock_id'=>'required',
-		'name'=>'required',
-	);
+    use \Dimsav\Translatable\Translatable;
 
 	/* Creating rules */
 	public static $rules_create = array(
-		'place_id'=>'required',
-		'quantity'=>'required',
+		'parent_id'=>'required',
+		'name'=>'required',
 	);
 
 	/* Updating rules */
 	public static $rules_edit = array(
 		'id'=>'required',
-		'place_id'=>'required',
-		'quantity'=>'required',
+		'parent_id'=>'required',
+		'name'=>'required',
 	);
                         
     public function parent() {
