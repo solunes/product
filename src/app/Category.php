@@ -11,6 +11,11 @@ class Category extends Model {
 	protected $table = 'categories';
 	public $timestamps = true;
 
+    public $translatedAttributes = ['name'];
+    protected $fillable = ['name', 'level'];
+
+    use \Dimsav\Translatable\Translatable;
+
     use Sluggable, SluggableScopeHelpers;
     public function sluggable(){
         return [

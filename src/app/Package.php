@@ -9,6 +9,11 @@ class Package extends Model {
 	protected $table = 'packages';
 	public $timestamps = true;
 
+	public $translatedAttributes = ['name'];
+    protected $fillable = ['name', 'active', 'currency_id', 'price'];
+
+    use \Dimsav\Translatable\Translatable;
+
 	/* Creating rules */
 	public static $rules_create = array(
         'name'=>'required',

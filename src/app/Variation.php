@@ -9,6 +9,11 @@ class Variation extends Model {
 	protected $table = 'variations';
 	public $timestamps = true;
 
+	public $translatedAttributes = ['name'];
+    protected $fillable = ['name', 'type'];
+
+    use \Dimsav\Translatable\Translatable;
+
 	/* Creating rules */
 	public static $rules_create = array(
 		'name'=>'required',

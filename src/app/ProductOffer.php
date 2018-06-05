@@ -9,6 +9,11 @@ class ProductOffer extends Model {
 	protected $table = 'product_offers';
 	public $timestamps = false;
 
+	public $translatedAttributes = ['name'];
+    protected $fillable = ['name', 'parent_id', 'image'];
+
+    use \Dimsav\Translatable\Translatable;
+
 	/* Creating rules */
 	public static $rules_create = array(
 		'parent_id'=>'required',
