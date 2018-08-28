@@ -4,6 +4,13 @@ return [
 
 	// GENERAL
 	'after_seed' => true,
+	'product_images' => true,
+	'product_packages' => false,
+	'product_benefits' => false,
+	'product_groups' => false,
+	'product_offers' => false,
+	'product_variations' => false,
+	'product_extras' => false,
 
 	// CUSTOM FORMS
     'item_get_after_vars' => ['purchase','product'], // array de nodos: 'node'
