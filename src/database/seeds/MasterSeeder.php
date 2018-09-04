@@ -15,6 +15,7 @@ class MasterSeeder extends Seeder {
     {
         if(config('product.product_variations')){
             $node_variation = \Solunes\Master\App\Node::create(['name'=>'variation', 'location'=>'product', 'folder'=>'products']);
+            \Solunes\Master\App\Node::create(['name'=>'variation-option', 'location'=>'product', 'folder'=>'products']);
         }
         $node_category = \Solunes\Master\App\Node::create(['name'=>'category', 'table_name'=>'categories', 'multilevel'=>true, 'location'=>'product', 'folder'=>'products']);
         $node_product = \Solunes\Master\App\Node::create(['name'=>'product', 'location'=>'product', 'folder'=>'products']);
@@ -25,7 +26,7 @@ class MasterSeeder extends Seeder {
             $node_product_benefit = \Solunes\Master\App\Node::create(['name'=>'product-benefit', 'type'=>'subchild', 'location'=>'product', 'parent_id'=>$node_product->id]);
         }
         if(config('product.product_variations')){
-            $node_product_variation = \Solunes\Master\App\Node::create(['name'=>'product-variation', 'type'=>'field', 'model'=>'\App\Variation', 'location'=>'product', 'parent_id'=>$node_product->id]);
+            \Solunes\Master\App\Node::create(['name'=>'product-variation', 'table_name'=>'product_variation', 'model'=>'\Solunes\Product\App\Variation', 'type'=>'field', 'parent_id'=>$node_product->id]);
         }
         if(config('product.product_images')){
             \Solunes\Master\App\Node::create(['name'=>'product-image', 'type'=>'subchild', 'location'=>'product', 'parent_id'=>$node_product->id]);

@@ -15,7 +15,10 @@ class NodesProduct extends Migration
         if(config('product.product_variations')){
             Schema::create('variations', function (Blueprint $table) {
                 $table->increments('id');
-                $table->enum('type', ['normal', 'color', 'image'])->nullable()->default('normal');
+                $table->enum('type', ['choice','quantities'])->default('choice');
+                $table->enum('subtype', ['normal', 'color', 'image'])->nullable()->default('normal');
+                $table->integer('max_choices')->nullable()->default(0);
+                $table->boolean('optional')->nullable()->default(0);
                 $table->timestamps();
             });
             Schema::create('variation_translation', function(Blueprint $table) {
@@ -23,8 +26,25 @@ class NodesProduct extends Migration
                 $table->integer('variation_id')->unsigned();
                 $table->string('locale')->index();
                 $table->string('name')->nullable();
+                $table->string('label')->nullable();
                 $table->unique(['variation_id','locale']);
                 $table->foreign('variation_id')->references('id')->on('variations')->onDelete('cascade');
+            });
+            Schema::create('variation_options', function (Blueprint $table) {
+                $table->increments('id');
+                $table->integer('parent_id')->nullable();
+                $table->decimal('extra_price', 10, 2)->nullable()->default(0);
+                $table->integer('max_quantity')->nullable()->default(0);
+                $table->timestamps();
+            });
+            Schema::create('variation_option_translation', function(Blueprint $table) {
+                $table->increments('id');
+                $table->integer('variation_option_id')->unsigned();
+                $table->string('locale')->index();
+                $table->string('name')->nullable();
+                $table->string('description')->nullable();
+                $table->unique(['variation_option_id','locale']);
+                $table->foreign('variation_option_id')->references('id')->on('variation_options')->onDelete('cascade');
             });
         }
         Schema::create('categories', function (Blueprint $table) {
@@ -105,6 +125,8 @@ class NodesProduct extends Migration
                 $table->increments('id');
                 $table->integer('product_id')->unsigned();
                 $table->integer('variation_id')->unsigned();
+                $table->integer('quantity')->nullable();
+                $table->decimal('new_price',10,2)->nullable();
                 $table->string('value')->nullable();
                 $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
                 $table->foreign('variation_id')->references('id')->on('variations')->onDelete('cascade');
@@ -209,6 +231,8 @@ class NodesProduct extends Migration
         Schema::dropIfExists('products');
         Schema::dropIfExists('category_translation');
         Schema::dropIfExists('categories');
+        Schema::dropIfExists('variation_option_translation');
+        Schema::dropIfExists('variation_options');
         Schema::dropIfExists('variation_translation');
         Schema::dropIfExists('variations');
     }

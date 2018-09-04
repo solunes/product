@@ -9,8 +9,8 @@ class Variation extends Model {
 	protected $table = 'variations';
 	public $timestamps = true;
 
-	public $translatedAttributes = ['name'];
-    protected $fillable = ['name', 'type'];
+	public $translatedAttributes = ['name','label'];
+    protected $fillable = ['name','label','type','subtype','max_choices','optional'];
 
     use \Dimsav\Translatable\Translatable;
 
