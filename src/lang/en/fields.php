@@ -9,6 +9,12 @@ return [
     |
     */
 
+    'created_at' => 'Created At',
+    'id' => 'ID',
+    'image' => 'Image',
+    'name' => 'Name',
+    'order' => 'Order',
+    'updated_at' => 'Updated At',
     'barcode' => 'Barcode',
     'category' => 'Category',
     'cost' => 'Cost',
