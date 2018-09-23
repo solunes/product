@@ -3,7 +3,7 @@
 return array(
 
 	// MENU
-	'product' => 'Product',
+	'products' => 'Products',
 
 	// CUSTOM TRANS
 	'0' => 'No',
