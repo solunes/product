@@ -41,8 +41,8 @@ class MasterSeeder extends Seeder {
         // Usuarios
         $admin = \Solunes\Master\App\Role::where('name', 'admin')->first();
         $member = \Solunes\Master\App\Role::where('name', 'member')->first();
-        $product_perm = \Solunes\Master\App\Permission::create(['name'=>'product', 'display_name'=>'Negocio']);
-        $admin->permission_role()->attach([$product_perm->id]);
+        $products_perm = \Solunes\Master\App\Permission::create(['name'=>'products', 'display_name'=>'Productos']);
+        $admin->permission_role()->attach([$products_perm->id]);
 
     }
 }
