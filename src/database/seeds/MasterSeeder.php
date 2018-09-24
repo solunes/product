@@ -15,7 +15,7 @@ class MasterSeeder extends Seeder {
     {
         if(config('product.product_variations')){
             $node_variation = \Solunes\Master\App\Node::create(['name'=>'variation', 'location'=>'product', 'folder'=>'products']);
-            \Solunes\Master\App\Node::create(['name'=>'variation-option', 'location'=>'product', 'folder'=>'products']);
+            \Solunes\Master\App\Node::create(['name'=>'variation-option', 'type'=>'child', 'location'=>'product', 'folder'=>'products', 'parent_id'=>$node_variation->id]);
         }
         $node_category = \Solunes\Master\App\Node::create(['name'=>'category', 'table_name'=>'categories', 'multilevel'=>true, 'location'=>'product', 'folder'=>'products']);
         $node_product = \Solunes\Master\App\Node::create(['name'=>'product', 'location'=>'product', 'folder'=>'products']);
