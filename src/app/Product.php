@@ -61,19 +61,11 @@ class Product extends Model {
     }
 
     public function currency() {
-        return $this->belongsTo('Solunes\Product\App\Currency');
+        return $this->belongsTo('Solunes\Business\App\Currency');
     }
 
     public function external_currency() {
-        return $this->belongsTo('Solunes\Product\App\Currency');
-    }
-
-    public function partner() {
-        return $this->belongsTo('Solunes\Product\App\Partner');
-    }
-
-    public function partner_transport() {
-        return $this->belongsTo('Solunes\Product\App\Partner');
+        return $this->belongsTo('Solunes\Business\App\Currency');
     }
 
     public function product_group() {
@@ -105,7 +97,7 @@ class Product extends Model {
     }
 
     public function purchase_products() {
-        return $this->hasMany('Solunes\Product\App\PurchaseProduct');
+        return $this->hasMany('Solunes\Inventory\App\PurchaseProduct');
     }
 
     public function getTotalStockAttribute() {
