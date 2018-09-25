@@ -29,15 +29,10 @@ class Product extends Model {
 	public static $rules_create = array(
 		'category_id'=>'required',
         'currency_id'=>'required',
-        'external_currency_id'=>'required',
-        'partner_id'=>'required',
-        'partner_transport_id'=>'required',
         'barcode'=>'required',
         'name'=>'required',
         'cost'=>'required',
         'price'=>'required',
-        'no_invoice_price'=>'required',
-        'printed'=>'required',
 	);
 
 	/* Updating rules */
@@ -45,15 +40,10 @@ class Product extends Model {
 		'id'=>'required',
         'category_id'=>'required',
         'currency_id'=>'required',
-        'external_currency_id'=>'required',
-        'partner_id'=>'required',
-        'partner_transport_id'=>'required',
         'barcode'=>'required',
         'name'=>'required',
         'cost'=>'required',
         'price'=>'required',
-        'no_invoice_price'=>'required',
-        'printed'=>'required',
 	);
 
     public function category() {
@@ -64,15 +54,11 @@ class Product extends Model {
         return $this->belongsTo('Solunes\Business\App\Currency');
     }
 
-    public function external_currency() {
-        return $this->belongsTo('Solunes\Business\App\Currency');
-    }
-
     public function product_group() {
         return $this->belongsTo('Solunes\Product\App\ProductGroup');
     }
 
-    public function product_variations() {
+    public function product_variation() {
         return $this->belongsToMany('Solunes\Product\App\Variation', 'product_variation', 'product_id', 'variation_id');
     }
 
@@ -81,7 +67,7 @@ class Product extends Model {
     }
 
     public function product_stocks() {
-        return $this->hasMany('Solunes\Product\App\ProductStock', 'parent_id');
+        return $this->hasMany('Solunes\Inventory\App\ProductStock', 'parent_id');
     }
 
     public function product_images() {
