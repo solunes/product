@@ -27,5 +27,15 @@ return [
     'product_size' => 'Product Size',
     'slug' => 'Slug',
     'weight' => 'Weight',
+    'description' => 'Description',
+    'extra_price' => 'Extra Price',
+    'label' => 'Label',
+    'max_choices' => 'Max Choices',
+    'max_quantity' => 'Max Quantity',
+    'optional' => 'Optional',
+    'product_variation' => 'Product Variation',
+    'subtype' => 'Subtype',
+    'type' => 'Type',
+    'variation_options' => 'Variation Options',
 
 ];

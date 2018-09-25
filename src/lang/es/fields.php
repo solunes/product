@@ -27,5 +27,15 @@ return [
     'product_size' => 'Tamaño de Producto',
     'slug' => 'Slug',
     'weight' => 'Peso',
+    'description' => 'Descripción',
+    'extra_price' => 'Precio Extra',
+    'label' => 'Etiqueta',
+    'max_choices' => 'Elecciones Máximas',
+    'max_quantity' => 'Cantidad Máxima',
+    'optional' => 'Opcional',
+    'product_variation' => 'Variación de Producto',
+    'subtype' => 'Subtipo',
+    'type' => 'Tipo',
+    'variation_options' => 'Opciones de Variación',
 
 ];
