@@ -27,8 +27,8 @@ class Variation extends Model {
 		'type'=>'required',
 	);
 	
-    public function node() {
-        return $this->belongsTo('Solunes\Master\App\Node');
+    public function variation_options() {
+        return $this->hasMany('Solunes\Product\App\VariationOption','parent_id');
     }
 	
 }
