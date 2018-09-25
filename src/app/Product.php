@@ -29,9 +29,9 @@ class Product extends Model {
 	public static $rules_create = array(
 		'category_id'=>'required',
         'currency_id'=>'required',
-        'barcode'=>'required',
+        //'barcode'=>'required',
         'name'=>'required',
-        'cost'=>'required',
+        //'cost'=>'required',
         'price'=>'required',
 	);
 
@@ -40,9 +40,9 @@ class Product extends Model {
 		'id'=>'required',
         'category_id'=>'required',
         'currency_id'=>'required',
-        'barcode'=>'required',
+        //'barcode'=>'required',
         'name'=>'required',
-        'cost'=>'required',
+        //'cost'=>'required',
         'price'=>'required',
 	);
 
