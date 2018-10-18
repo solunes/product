@@ -12,6 +12,7 @@ return [
 	'product_variations' => false,
 	'product_extras' => false,
 	'category_image' => true,
+	'category_description' => true,
 	'product_description' => true,
 	'product_extra_description' => false,
 

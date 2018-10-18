@@ -53,7 +53,6 @@ class NodesProduct extends Migration
             $table->integer('level')->nullable();
             $table->integer('order')->nullable()->default(0);
             $table->string('slug')->nullable();
-            $table->string('image')->nullable();
             $table->timestamps();
         });
         if(config('product.category_image')){
@@ -69,6 +68,11 @@ class NodesProduct extends Migration
             $table->unique(['category_id','locale']);
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
         });
+        if(config('product.category_description')){
+            Schema::table('category_translation', function (Blueprint $table) {
+                $table->text('description')->nullable();
+            });
+        }
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
             $table->string('barcode')->nullable();
