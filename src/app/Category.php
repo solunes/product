@@ -11,8 +11,8 @@ class Category extends Model {
 	protected $table = 'categories';
 	public $timestamps = true;
 
-    public $translatedAttributes = ['name'];
-    protected $fillable = ['name', 'level'];
+    public $translatedAttributes = ['name','description'];
+    protected $fillable = ['name', 'description','level','image'];
 
     use \Dimsav\Translatable\Translatable;
 

@@ -9,6 +9,6 @@ class ProductTranslation extends Model {
     
     protected $table = 'product_translation';
     public $timestamps = false;
-    protected $fillable = ['name'];
+    protected $fillable = ['name','description','extra_description'];
 
 }

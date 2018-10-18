@@ -10,6 +10,6 @@ class CategoryTranslation extends Model {
     
     protected $table = 'category_translation';
     public $timestamps = false;
-    protected $fillable = ['name'];
+    protected $fillable = ['name','description'];
 
 }
