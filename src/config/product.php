@@ -11,6 +11,9 @@ return [
 	'product_offers' => false,
 	'product_variations' => false,
 	'product_extras' => false,
+	'category_image' => true,
+	'product_description' => true,
+	'product_extra_description' => false,
 
 	// CUSTOM FORMS
     'item_get_after_vars' => ['purchase','product'], // array de nodos: 'node'
