@@ -11,8 +11,8 @@ class Product extends Model {
 	protected $table = 'products';
 	public $timestamps = true;
 
-    public $translatedAttributes = ['name','description','extra_description'];
-    protected $fillable = ['name','description','extra_description','category_id','currency_id', 'external_currency_id', 'partner_id', 'partner_transport_id', 'barcode', 'cost', 'price', 'no_invoice_price', 'printed'];
+    public $translatedAttributes = ['name','description'];
+    protected $fillable = ['name','description','category_id','currency_id', 'external_currency_id', 'partner_id', 'partner_transport_id', 'barcode', 'cost', 'price', 'no_invoice_price', 'printed'];
 
     use \Dimsav\Translatable\Translatable;
 
