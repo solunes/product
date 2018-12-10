@@ -12,7 +12,7 @@ class Product extends Model {
 	public $timestamps = true;
 
     public $translatedAttributes = ['name','description'];
-    protected $fillable = ['name','description','category_id','currency_id', 'external_currency_id', 'partner_id', 'partner_transport_id', 'barcode', 'cost', 'price', 'no_invoice_price', 'printed'];
+    protected $fillable = ['name','description','category_id','currency_id', 'external_currency_id', 'partner_id', 'partner_transport_id', 'barcode', 'cost', 'price', 'no_invoice_price', 'printed','active'];
 
     use \Dimsav\Translatable\Translatable;
 
@@ -31,7 +31,7 @@ class Product extends Model {
         'currency_id'=>'required',
         //'barcode'=>'required',
         'name'=>'required',
-        //'cost'=>'required',
+        'active'=>'required',
         'price'=>'required',
 	);
 
@@ -42,7 +42,7 @@ class Product extends Model {
         'currency_id'=>'required',
         //'barcode'=>'required',
         'name'=>'required',
-        //'cost'=>'required',
+        'active'=>'required',
         'price'=>'required',
 	);
 

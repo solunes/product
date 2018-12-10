@@ -85,6 +85,7 @@ class NodesProduct extends Migration
             $table->decimal('weight', 10, 2)->nullable()->default(0);
             $table->decimal('cost', 10, 2)->nullable();
             $table->decimal('price', 10, 2)->nullable();
+            $table->boolean('active')->default(1);
             $table->timestamps();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->foreign('currency_id')->references('id')->on('currencies')->onDelete('cascade');

@@ -23,6 +23,7 @@ class ProductSaved
         $image = \Asset::get_image_path('product-image','normal',$event->image);
         $product_bridge->image = \Asset::upload_image(asset($image),'product-bridge-image');
         $product_bridge->content = $event->content;
+        $product_bridge->active = $event->active;
         $product_bridge->save();
         $array = [];
         if(config('product.product_variations')){
