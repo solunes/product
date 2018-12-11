@@ -51,7 +51,7 @@ class Category extends Model {
     }
 
     public function products() {
-        return $this->hasMany('Solunes\Product\App\Product');
+        return $this->hasMany('Solunes\Product\App\Product')->where('active', 1);
     }
 
 }
