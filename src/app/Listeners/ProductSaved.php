@@ -24,6 +24,15 @@ class ProductSaved
         $product_bridge->image = \Asset::upload_image(asset($image),'product-bridge-image');
         $product_bridge->content = $event->content;
         $product_bridge->active = $event->active;
+        if(config('payments.sfv_version')>1||config('payments.discounts')){
+            $product_bridge->discount_price = $event->discount_price;
+        }
+        if(config('payments.sfv_version')>1){
+            $product_bridge->economic_sin_activity = $event->economic_sin_activity;
+            $product_bridge->product_sin_code = $event->product_sin_code;
+            $product_bridge->product_internal_code = $event->product_internal_code;
+            $product_bridge->product_serial_number = $event->product_serial_number;
+        }
         $product_bridge->save();
         $array = [];
         if(config('product.product_variations')){

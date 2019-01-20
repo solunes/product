@@ -85,6 +85,15 @@ class NodesProduct extends Migration
             $table->decimal('weight', 10, 2)->nullable()->default(0);
             $table->decimal('cost', 10, 2)->nullable();
             $table->decimal('price', 10, 2)->nullable();
+            if(config('payments.sfv_version')>1||config('payments.discounts')){
+                $table->decimal('discount_price', 10, 2)->nullable();
+            }
+            if(config('payments.sfv_version')>1){
+                $table->string('economic_sin_activity')->nullable();
+                $table->string('product_sin_code')->nullable();
+                $table->string('product_internal_code')->nullable();
+                $table->string('product_serial_number')->nullable(); // Para linea blanca y celulares
+            }
             $table->boolean('active')->default(1);
             $table->timestamps();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');

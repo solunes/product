@@ -36,6 +36,8 @@ return [
     'product_variation' => 'Variación de Producto',
     'subtype' => 'Subtipo',
     'type' => 'Tipo',
+    'parcial_cost' => 'Costo Parcial',
+    'variations' => 'Variaciones',
     'variation_options' => 'Opciones de Variación',
 
 ];
