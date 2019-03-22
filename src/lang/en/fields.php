@@ -9,6 +9,7 @@ return [
     |
     */
 
+    'active' => 'Activo',
     'created_at' => 'Created At',
     'id' => 'ID',
     'image' => 'Image',
