@@ -30,5 +30,13 @@ class VariationOption extends Model {
     public function node() {
         return $this->belongsTo('Solunes\Master\App\Node');
     }
-	
+		
+    public function parent() {
+        return $this->belongsTo('Solunes\Product\App\Variation');
+    }
+
+    public function variation() {
+        return $this->belongsTo('Solunes\Product\App\Variation', 'parent_id');
+    }
+
 }

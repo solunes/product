@@ -32,6 +32,10 @@ class ProductOffer extends Model {
     public function parent() {
         return $this->belongsTo('Solunes\Product\App\Product');
     }
+	                        
+    public function product() {
+        return $this->belongsTo('Solunes\Product\App\Product', 'parent_id');
+    }
 
     public function getSummaryLabelAttribute() {
     	$return = '<h4>Oferta</h4>';

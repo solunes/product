@@ -32,5 +32,9 @@ class ProductImage extends Model {
     public function parent() {
         return $this->belongsTo('Solunes\Product\App\Product');
     }
+	                        
+    public function product() {
+        return $this->belongsTo('Solunes\Product\App\Product', 'parent_id');
+    }
 
 }
