@@ -38,7 +38,7 @@ return [
     'subtype' => 'Subtipo',
     'type' => 'Tipo',
     'parcial_cost' => 'Costo Parcial',
-    'stockable' => '¿Usa Stock?'
+    'stockable' => '¿Usa Stock?',
     'variations' => 'Variaciones',
     'variation_options' => 'Opciones de Variación',
 
