@@ -33,6 +33,9 @@ class ProductSaved
             $product_bridge->product_internal_code = $event->product_internal_code;
             $product_bridge->product_serial_number = $event->product_serial_number;
         }
+        if(config('solunes.inventory')){
+            $product_bridge->stockable = $event->stockable;
+        }
         $product_bridge->save();
         $array = [];
         if(config('product.product_variations')){
