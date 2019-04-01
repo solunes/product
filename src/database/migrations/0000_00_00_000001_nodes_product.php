@@ -95,7 +95,7 @@ class NodesProduct extends Migration
                 $table->string('product_serial_number')->nullable(); // Para linea blanca y celulares
             }
             if(config('solunes.inventory')){
-                $table->boolean('stockable')->default(1);
+                $table->boolean('stockable')->nullable()->default(1);
             }
             $table->boolean('active')->default(1);
             $table->timestamps();
