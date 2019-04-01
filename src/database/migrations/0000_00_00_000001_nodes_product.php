@@ -97,6 +97,7 @@ class NodesProduct extends Migration
             if(config('solunes.inventory')){
                 $table->boolean('stockable')->nullable()->default(1);
             }
+            $table->enum('delivery_type', ['normal','manual','digital','link'])->default('normal');
             $table->boolean('active')->default(1);
             $table->timestamps();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
