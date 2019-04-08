@@ -5,6 +5,7 @@ namespace Solunes\Product\App;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
+use Fico7489\Laravel\Pivot\Traits\PivotEventTrait;
 
 class Product extends Model {
 	
@@ -15,6 +16,7 @@ class Product extends Model {
     protected $fillable = ['name','description','category_id','currency_id', 'external_currency_id', 'partner_id', 'partner_transport_id', 'barcode', 'cost', 'price', 'no_invoice_price', 'printed','active'];
 
     use \Dimsav\Translatable\Translatable;
+    use PivotEventTrait;
 
     use Sluggable, SluggableScopeHelpers;
     public function sluggable(){
@@ -86,6 +88,10 @@ class Product extends Model {
         return $this->hasMany('Solunes\Inventory\App\PurchaseProduct');
     }
 
+    public function product_bridge() {
+        return $this->hasOne('Solunes\Business\App\ProductBridge')->where('product_type', 'product');
+    }
+
     public function getTotalStockAttribute() {
         if(count($this->product_stocks)>0){
             return $this->product_stocks->sum('quantity');
@@ -130,6 +136,24 @@ class Product extends Model {
         //$variables['no_invoice_reduction'] = \App\Variable::where('name', 'reduccion_sin_factura')->first()->value;
         $variables['no_invoice_reduction'] = 16;
         return $variables;
+    }
+
+    public static function boot() {
+        static::pivotAttached(function ($model, $relationName, $pivotIds, $pivotIdsAttributes) {
+            if($relationName=='product_variation'){
+                $product_bridge = $model->product_bridge;
+                $product_bridge->product_bridge_variation()->attach($pivotIds);
+                if(config('solunes.inventory')){
+                    $agencies = \Solunes\Business\App\Agency::where('stockable', 1)->get();
+                    foreach($product_bridge->product_bridge_variation()->where('product_bridge_variation.stockable', 1)->get() as $product_bridge_variation){
+                        foreach($agencies as $agency){
+                            \Inventory::increase_inventory($agency, $product_bridge, $product_bridge_variation, 0);
+                        }
+                    }
+                }
+            }
+
+        });
     }
 
 }

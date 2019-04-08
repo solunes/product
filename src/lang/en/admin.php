@@ -7,11 +7,15 @@ return array(
 
 	// CUSTOM TRANS
 	'0' => 'No',
-	'1' => 'Yes',
-	'choice' => 'Choice',
+	'1' => 'Si',
+	'choice' => 'Elección',
 	'color' => 'Color',
-	'image' => 'Image',
+	'image' => 'Imagen',
 	'normal' => 'Normal',
-	'quantities' => 'Quantities',
+	'quantities' => 'Cantidades',
+	'digital' => 'Digital',
+	'link' => 'Link',
+	'normal' => 'Normal',
+	'manual' => 'Manual',
 
 );

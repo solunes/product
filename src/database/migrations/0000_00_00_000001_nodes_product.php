@@ -17,6 +17,9 @@ class NodesProduct extends Migration
                 $table->increments('id');
                 $table->enum('type', ['choice','quantities'])->default('choice');
                 $table->enum('subtype', ['normal', 'color', 'image'])->nullable()->default('normal');
+                if(config('solunes.inventory')){
+                    $table->boolean('stockable')->nullable()->default(1);
+                }
                 $table->integer('max_choices')->nullable()->default(0);
                 $table->boolean('optional')->nullable()->default(0);
                 $table->timestamps();
@@ -53,26 +56,22 @@ class NodesProduct extends Migration
             $table->integer('level')->nullable();
             $table->integer('order')->nullable()->default(0);
             $table->string('slug')->nullable();
+            if(config('product.category_image')){
+                $table->string('image')->nullable();
+            }
             $table->timestamps();
         });
-        if(config('product.category_image')){
-            Schema::table('categories', function (Blueprint $table) {
-                $table->string('image')->nullable();
-            });
-        }
         Schema::create('category_translation', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('category_id')->unsigned();
             $table->string('locale')->index();
             $table->string('name')->nullable();
+            if(config('product.category_description')){
+                $table->text('description')->nullable();
+            }
             $table->unique(['category_id','locale']);
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
         });
-        if(config('product.category_description')){
-            Schema::table('category_translation', function (Blueprint $table) {
-                $table->text('description')->nullable();
-            });
-        }
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
             $table->string('barcode')->nullable();
@@ -99,6 +98,9 @@ class NodesProduct extends Migration
             }
             $table->enum('delivery_type', ['normal','manual','digital','link'])->default('normal');
             $table->boolean('active')->default(1);
+            if(config('product.product_groups')){
+                $table->integer('product_group_id')->nullable();
+            }
             $table->timestamps();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->foreign('currency_id')->references('id')->on('currencies')->onDelete('cascade');
@@ -117,29 +119,20 @@ class NodesProduct extends Migration
                 $table->decimal('offer_price', 10, 2)->nullable();
             });
         }
-        if(config('product.product_groups')){
-            Schema::table('products', function (Blueprint $table) {
-                $table->integer('product_group_id')->nullable();
-            });
-        }
         Schema::create('product_translation', function(Blueprint $table) {
             $table->increments('id');
             $table->integer('product_id')->unsigned();
             $table->string('locale')->index();
             $table->string('name')->nullable();
+            if(config('product.product_description')){
+                $table->text('description')->nullable();
+            }
+            if(config('product.product_extra_description')){
+                $table->text('extra_description')->nullable();
+            }
             $table->unique(['product_id','locale']);
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
-        if(config('product.product_description')){
-            Schema::table('product_translation', function (Blueprint $table) {
-                $table->text('description')->nullable();
-            });
-        }
-        if(config('product.product_extra_description')){
-            Schema::table('product_translation', function (Blueprint $table) {
-                $table->text('extra_description')->nullable();
-            });
-        }
         if(config('product.product_groups')){
             Schema::create('product_groups', function (Blueprint $table) {
                 $table->increments('id');

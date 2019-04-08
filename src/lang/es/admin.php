@@ -13,5 +13,9 @@ return array(
 	'image' => 'Imagen',
 	'normal' => 'Normal',
 	'quantities' => 'Cantidades',
+	'digital' => 'Digital',
+	'link' => 'Link',
+	'normal' => 'Normal',
+	'manual' => 'Manual',
 
 );

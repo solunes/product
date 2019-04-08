@@ -37,12 +37,12 @@ class ProductSaved
             $product_bridge->stockable = $event->stockable;
         }
         $product_bridge->save();
-        $array = [];
-        if(config('product.product_variations')){
-	        foreach($event->product_variation as $product_variation){
-	            $array[$product_variation->id] = ['quantity'=>$product_variation->pivot->quantity,'new_price'=>$product_variation->pivot->new_price,'value'=>$product_variation->pivot->value];
-	        }
-	        $product_bridge->product_bridge_variation()->sync($array);
+        if(config('solunes.inventory')&&$event->stockable==1){
+            $added_variations = 0;
+            $agencies = \Solunes\Business\App\Agency::where('stockable', 1)->get();
+            foreach($agencies as $agency){
+                \Inventory::increase_inventory($agency, $product_bridge, NULL, 0);
+            }
         }
         return $event;
     }
