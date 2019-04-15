@@ -26,7 +26,7 @@ class Variation extends Model {
 		'name'=>'required',
 		'type'=>'required',
 	);
-	
+			
     public function variation_options() {
         return $this->hasMany('Solunes\Product\App\VariationOption','parent_id');
     }
