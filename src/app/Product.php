@@ -92,6 +92,10 @@ class Product extends Model {
         return $this->hasOne('Solunes\Business\App\ProductBridge')->where('product_type', 'product');
     }
 
+    public function variation_option() {
+        return $this->belongsTo('Solunes\Business\App\VariationOption');
+    }
+
     public function getTotalStockAttribute() {
         if(count($this->product_stocks)>0){
             return $this->product_stocks->sum('quantity');

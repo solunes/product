@@ -26,7 +26,7 @@ class MasterSeeder extends Seeder {
             $node_product_benefit = \Solunes\Master\App\Node::create(['name'=>'product-benefit', 'type'=>'subchild', 'location'=>'product', 'parent_id'=>$node_product->id]);
         }
         if(config('product.product_variations')){
-            \Solunes\Master\App\Node::create(['name'=>'product-variation', 'table_name'=>'product_variation', 'model'=>'\Solunes\Business\App\Variation', 'type'=>'field', 'parent_id'=>$node_product->id]);
+            \Solunes\Master\App\Node::create(['name'=>'product-variation', 'table_name'=>'product_variation', 'location'=>'product', 'model'=>'\Solunes\Business\App\Variation', 'type'=>'field', 'parent_id'=>$node_product->id]);
         }
         if(config('product.product_images')){
             \Solunes\Master\App\Node::create(['name'=>'product-image', 'type'=>'subchild', 'location'=>'product', 'parent_id'=>$node_product->id]);
