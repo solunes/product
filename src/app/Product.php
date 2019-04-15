@@ -61,7 +61,7 @@ class Product extends Model {
     }
 
     public function product_variation() {
-        return $this->belongsToMany('Solunes\Product\App\Variation', 'product_variation', 'product_id', 'variation_id');
+        return $this->belongsToMany('Solunes\Business\App\Variation', 'product_variation', 'product_id', 'variation_id');
     }
 
     public function product_benefits() {
@@ -142,12 +142,22 @@ class Product extends Model {
         static::pivotAttached(function ($model, $relationName, $pivotIds, $pivotIdsAttributes) {
             if($relationName=='product_variation'){
                 $product_bridge = $model->product_bridge;
-                $product_bridge->product_bridge_variation()->attach($pivotIds);
+                foreach($pivotIds as $pivotId){
+                    $variation = \Solunes\Business\App\Variation::find($pivotId);
+                    foreach($variation->variation_options as $variation_option){
+                      if(!\Solunes\Business\App\ProductBridgeVariationOption::where('product_bridge_id', $product_bridge->id)->where('variation_id', $variation->id)->where('variation_option_id', $variation_option->id)->first())
+                        $pb_variation_option = new \Solunes\Business\App\ProductBridgeVariationOption;
+                        $pb_variation_option->product_bridge_id = $product_bridge->id;
+                        $pb_variation_option->variation_id = $variation->id;
+                        $pb_variation_option->variation_option_id = $variation_option->id;
+                        $pb_variation_option->save();
+                    }
+                }
                 if(config('solunes.inventory')){
                     $agencies = \Solunes\Business\App\Agency::where('stockable', 1)->get();
-                    foreach($product_bridge->product_bridge_variation()->where('product_bridge_variation.stockable', 1)->get() as $product_bridge_variation){
+                    foreach($product_bridge->product_bridge_variation_options()->get() as $product_bridge_variation_option){
                         foreach($agencies as $agency){
-                            \Inventory::increase_inventory($agency, $product_bridge, $product_bridge_variation, 0);
+                            \Inventory::increase_inventory($agency, $product_bridge, $product_bridge_variation_option, 0);
                         }
                     }
                 }

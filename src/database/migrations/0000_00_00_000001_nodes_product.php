@@ -13,7 +13,7 @@ class NodesProduct extends Migration
     public function up()
     {
         if(config('product.product_variations')){
-            Schema::create('variations', function (Blueprint $table) {
+            /*Schema::create('variations', function (Blueprint $table) {
                 $table->increments('id');
                 $table->enum('type', ['choice','quantities'])->default('choice');
                 $table->enum('subtype', ['normal', 'color', 'image'])->nullable()->default('normal');
@@ -48,7 +48,7 @@ class NodesProduct extends Migration
                 $table->string('description')->nullable();
                 $table->unique(['variation_option_id','locale']);
                 $table->foreign('variation_option_id')->references('id')->on('variation_options')->onDelete('cascade');
-            });
+            });*/
         }
         Schema::create('categories', function (Blueprint $table) {
             $table->increments('id');
@@ -258,9 +258,9 @@ class NodesProduct extends Migration
         Schema::dropIfExists('products');
         Schema::dropIfExists('category_translation');
         Schema::dropIfExists('categories');
-        Schema::dropIfExists('variation_option_translation');
+        /*Schema::dropIfExists('variation_option_translation');
         Schema::dropIfExists('variation_options');
         Schema::dropIfExists('variation_translation');
-        Schema::dropIfExists('variations');
+        Schema::dropIfExists('variations');*/
     }
 }

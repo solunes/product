@@ -39,8 +39,8 @@ class TruncateSeeder extends Seeder {
         \Solunes\Product\App\CategoryTranslation::truncate();
         \Solunes\Product\App\Category::truncate();
         if(config('product.product_variations')){
-            \Solunes\Product\App\VariationTranslation::truncate();
-            \Solunes\Product\App\Variation::truncate();
+            //\Solunes\Product\App\VariationTranslation::truncate();
+            //\Solunes\Product\App\Variation::truncate();
         }
     }
 }

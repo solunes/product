@@ -47,7 +47,7 @@ class Category extends Model {
     }
 
     public function variation() {
-        return $this->belongsTo('Solunes\Product\App\Variation');
+        return $this->belongsTo('Solunes\Business\App\Variation');
     }
 
     public function products() {
