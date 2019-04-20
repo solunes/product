@@ -145,23 +145,65 @@ class Product extends Model {
     public static function boot() {
         static::pivotAttached(function ($model, $relationName, $pivotIds, $pivotIdsAttributes) {
             if($relationName=='product_variation'){
-                $product_bridge = $model->product_bridge;
+                $product_bridge_main = $model->product_bridge;
                 foreach($pivotIds as $pivotId){
                     $variation = \Solunes\Business\App\Variation::find($pivotId);
                     foreach($variation->variation_options as $variation_option){
-                      if(!\Solunes\Business\App\ProductBridgeVariationOption::where('product_bridge_id', $product_bridge->id)->where('variation_id', $variation->id)->where('variation_option_id', $variation_option->id)->first())
-                        $pb_variation_option = new \Solunes\Business\App\ProductBridgeVariationOption;
-                        $pb_variation_option->product_bridge_id = $product_bridge->id;
-                        $pb_variation_option->variation_id = $variation->id;
-                        $pb_variation_option->variation_option_id = $variation_option->id;
-                        $pb_variation_option->save();
+                      if($variation->stockable){
+                        $product_bridge = \Solunes\Business\App\ProductBridge::where('product_type','product')->where('product_id', $product_bridge_main->product_id)->where('variation_id', $variation->id)->where('variation_option_id', $variation_option->id)->first();
+                        if(!$product_bridge){
+                            $product_bridge = \Solunes\Business\App\ProductBridge::where('product_type','product')->where('product_id', $product_bridge_main->product_id)->whereNull('variation_id')->whereNull('variation_option_id')->first();
+                            if(!$product_bridge){
+                                $product_bridge = new \Solunes\Business\App\ProductBridge;
+                                $product_bridge->product_type = 'product';
+                                $product_bridge->product_id = $product_bridge_main->product_id;
+                            }
+                            $product_bridge->variation_id = $variation->id;
+                            $product_bridge->variation_option_id = $variation_option->id;
+                        }
+                        $product_bridge->currency_id = $product_bridge_main->currency_id;
+                        $product_bridge->price = $product_bridge_main->price;
+                        $product_bridge->name = $product_bridge_main->name.' - '.$variation_option->name;
+                        $image = \Asset::get_image_path('product-bridge-image','normal',$product_bridge_main->image);
+                        $product_bridge->image = \Asset::upload_image(asset($image),'product-bridge-image');
+                        $product_bridge->content = $product_bridge_main->content;
+                        $product_bridge->active = $product_bridge_main->active;
+                        if(config('payments.sfv_version')>1||config('payments.discounts')){
+                            $product_bridge->discount_price = $product_bridge_main->discount_price;
+                        }
+                        if(config('payments.sfv_version')>1){
+                            $product_bridge->economic_sin_activity = $product_bridge_main->economic_sin_activity;
+                            $product_bridge->product_sin_code = $product_bridge_main->product_sin_code;
+                            $product_bridge->product_internal_code = $product_bridge_main->product_internal_code;
+                            $product_bridge->product_serial_number = $product_bridge_main->product_serial_number;
+                        }
+                        if(config('solunes.inventory')){
+                            $product_bridge->stockable = $product_bridge_main->stockable;
+                        }
+                        $product_bridge->save();
+                        if(config('solunes.inventory')&&$product_bridge_main->stockable==1){
+                            $added_variations = 0;
+                            $agencies = \Solunes\Business\App\Agency::where('stockable', 1)->get();
+                            foreach($agencies as $agency){
+                                \Inventory::increase_inventory($agency, $product_bridge, NULL, 0);
+                            }
+                        }
+                      } else {
+                        if(!\Solunes\Business\App\ProductBridgeVariationOption::where('product_bridge_id', $product_bridge_main->id)->where('variation_id', $variation->id)->where('variation_option_id', $variation_option->id)->first()){
+                          $pb_variation_option = new \Solunes\Business\App\ProductBridgeVariationOption;
+                          $pb_variation_option->product_bridge_id = $product_bridge_main->id;
+                          $pb_variation_option->variation_id = $variation->id;
+                          $pb_variation_option->variation_option_id = $variation_option->id;
+                          $pb_variation_option->save();
+                        }
+                      }
                     }
                 }
                 if(config('solunes.inventory')){
                     $agencies = \Solunes\Business\App\Agency::where('stockable', 1)->get();
-                    foreach($product_bridge->product_bridge_variation_options()->get() as $product_bridge_variation_option){
+                    foreach($product_bridge_main->product_bridge_variation_options()->get() as $product_bridge_variation_option){
                         foreach($agencies as $agency){
-                            \Inventory::increase_inventory($agency, $product_bridge, $product_bridge_variation_option, 0);
+                            \Inventory::increase_inventory($agency, $product_bridge_main, $product_bridge_variation_option, 0);
                         }
                     }
                 }
