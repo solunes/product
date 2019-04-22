@@ -157,6 +157,7 @@ class Product extends Model {
                             $product_bridge->product_id = $product_bridge_main->product_id;
                             $product_bridge->variation_id = $variation->id;
                             $product_bridge->variation_option_id = $variation_option->id;
+                            $product_bridge->product_bridge_parent_id = $product_bridge_main->id;
                         }
                         $product_bridge->currency_id = $product_bridge_main->currency_id;
                         $product_bridge->price = $product_bridge_main->price;
@@ -182,7 +183,7 @@ class Product extends Model {
                             $added_variations = 0;
                             $agencies = \Solunes\Business\App\Agency::where('stockable', 1)->get();
                             foreach($agencies as $agency){
-                                \Inventory::increase_inventory($agency, $product_bridge, NULL, 0);
+                                \Inventory::increase_inventory($agency, $product_bridge, 0);
                             }
                         }
                       } else {
@@ -200,10 +201,8 @@ class Product extends Model {
                 }
                 if(config('solunes.inventory')){
                     $agencies = \Solunes\Business\App\Agency::where('stockable', 1)->get();
-                    foreach($product_bridge_main->product_bridge_variation_options()->get() as $product_bridge_variation_option){
-                        foreach($agencies as $agency){
-                            \Inventory::increase_inventory($agency, $product_bridge_main, $product_bridge_variation_option, 0);
-                        }
+                    foreach($agencies as $agency){
+                        \Inventory::increase_inventory($agency, $product_bridge_main, 0);
                     }
                 }
             }

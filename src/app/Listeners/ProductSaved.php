@@ -41,7 +41,7 @@ class ProductSaved
             $added_variations = 0;
             $agencies = \Solunes\Business\App\Agency::where('stockable', 1)->get();
             foreach($agencies as $agency){
-                \Inventory::increase_inventory($agency, $product_bridge, NULL, 0);
+                \Inventory::increase_inventory($agency, $product_bridge, 0);
             }
         }
         return $event;
