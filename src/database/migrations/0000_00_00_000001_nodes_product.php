@@ -147,7 +147,7 @@ class NodesProduct extends Migration
                 $table->foreign('product_group_id')->references('id')->on('product_groups')->onDelete('cascade');
             });
         }
-        if(config('product.product_variations')){
+        /*if(config('product.product_variations')){
             Schema::create('product_variation', function (Blueprint $table) {
                 $table->increments('id');
                 $table->integer('product_id')->unsigned();
@@ -158,7 +158,7 @@ class NodesProduct extends Migration
                 $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
                 $table->foreign('variation_id')->references('id')->on('variations')->onDelete('cascade');
             });
-        }
+        }*/
         if(config('product.product_benefits')){
             Schema::create('product_benefits', function (Blueprint $table) {
                 $table->increments('id');
@@ -251,7 +251,7 @@ class NodesProduct extends Migration
         Schema::dropIfExists('product_images');
         Schema::dropIfExists('product_benefit_translation');
         Schema::dropIfExists('product_benefits');
-        Schema::dropIfExists('product_variation');
+        //Schema::dropIfExists('product_variation');
         Schema::dropIfExists('product_group_translation');
         Schema::dropIfExists('product_groups');
         Schema::dropIfExists('product_translation');

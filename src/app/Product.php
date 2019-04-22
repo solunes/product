@@ -61,7 +61,7 @@ class Product extends Model {
     }
 
     public function product_variation() {
-        return $this->belongsToMany('Solunes\Business\App\Variation', 'product_variation', 'product_id', 'variation_id');
+        return $this->belongsToMany('Solunes\Business\App\Variation', 'product_variation', 'product_id', 'variation_id')->withPivot('product_bridge_id','quantity','new_price','value');
     }
 
     public function product_benefits() {
@@ -152,20 +152,17 @@ class Product extends Model {
                       if($variation->stockable){
                         $product_bridge = \Solunes\Business\App\ProductBridge::where('product_type','product')->where('product_id', $product_bridge_main->product_id)->where('variation_id', $variation->id)->where('variation_option_id', $variation_option->id)->first();
                         if(!$product_bridge){
-                            $product_bridge = \Solunes\Business\App\ProductBridge::where('product_type','product')->where('product_id', $product_bridge_main->product_id)->whereNull('variation_id')->whereNull('variation_option_id')->first();
-                            if(!$product_bridge){
-                                $product_bridge = new \Solunes\Business\App\ProductBridge;
-                                $product_bridge->product_type = 'product';
-                                $product_bridge->product_id = $product_bridge_main->product_id;
-                            }
+                            $product_bridge = new \Solunes\Business\App\ProductBridge;
+                            $product_bridge->product_type = 'product';
+                            $product_bridge->product_id = $product_bridge_main->product_id;
                             $product_bridge->variation_id = $variation->id;
                             $product_bridge->variation_option_id = $variation_option->id;
                         }
                         $product_bridge->currency_id = $product_bridge_main->currency_id;
                         $product_bridge->price = $product_bridge_main->price;
                         $product_bridge->name = $product_bridge_main->name.' - '.$variation_option->name;
-                        $image = \Asset::get_image_path('product-bridge-image','normal',$product_bridge_main->image);
-                        $product_bridge->image = \Asset::upload_image(asset($image),'product-bridge-image');
+                        //$image = \Asset::get_image_path('product-bridge-image','normal',$product_bridge_main->image);
+                        $product_bridge->image = $product_bridge_main->image;
                         $product_bridge->content = $product_bridge_main->content;
                         $product_bridge->active = $product_bridge_main->active;
                         if(config('payments.sfv_version')>1||config('payments.discounts')){
@@ -189,14 +186,16 @@ class Product extends Model {
                             }
                         }
                       } else {
-                        if(!\Solunes\Business\App\ProductBridgeVariationOption::where('product_bridge_id', $product_bridge_main->id)->where('variation_id', $variation->id)->where('variation_option_id', $variation_option->id)->first()){
+                        $product_bridge = $product_bridge_main;
+                        if(!\Solunes\Business\App\ProductBridgeVariationOption::where('product_bridge_id', $product_bridge->id)->where('variation_id', $variation->id)->where('variation_option_id', $variation_option->id)->first()){
                           $pb_variation_option = new \Solunes\Business\App\ProductBridgeVariationOption;
-                          $pb_variation_option->product_bridge_id = $product_bridge_main->id;
+                          $pb_variation_option->product_bridge_id = $product_bridge->id;
                           $pb_variation_option->variation_id = $variation->id;
                           $pb_variation_option->variation_option_id = $variation_option->id;
                           $pb_variation_option->save();
                         }
                       }
+                      $model->product_variation()->updateExistingPivot($pivotId, ['product_bridge_id'=>$product_bridge_main->id]);
                     }
                 }
                 if(config('solunes.inventory')){

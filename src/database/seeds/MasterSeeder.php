@@ -25,11 +25,22 @@ class MasterSeeder extends Seeder {
         if(config('product.product_benefits')){
             $node_product_benefit = \Solunes\Master\App\Node::create(['name'=>'product-benefit', 'type'=>'subchild', 'location'=>'product', 'parent_id'=>$node_product->id]);
         }
-        if(config('product.product_variations')){
+        if(config('business.product_variations')){
             \Solunes\Master\App\Node::create(['name'=>'product-variation', 'table_name'=>'product_variation', 'location'=>'product', 'model'=>'\Solunes\Business\App\Variation', 'type'=>'field', 'parent_id'=>$node_product->id]);
         }
+        $image_folder = \Solunes\Master\App\ImageFolder::create(['site_id'=>1, 'name'=>'product-image', 'extension'=>'jpg']);
+        \Solunes\Master\App\ImageSize::create(['parent_id'=>$image_folder->id, 'code'=>'normal', 'type'=>'resize', 'width'=>'1000']);
+        \Solunes\Master\App\ImageSize::create(['parent_id'=>$image_folder->id, 'code'=>'thumb', 'type'=>'fit', 'width'=>'370', 'height'=>'370']);
+        \Solunes\Master\App\ImageSize::create(['parent_id'=>$image_folder->id, 'code'=>'cart', 'type'=>'fit', 'width'=>'80', 'height'=>'100']);
+        \Solunes\Master\App\ImageSize::create(['parent_id'=>$image_folder->id, 'code'=>'detail', 'type'=>'fit', 'width'=>'570', 'height'=>'570']);
+        \Solunes\Master\App\ImageSize::create(['parent_id'=>$image_folder->id, 'code'=>'subdetail', 'type'=>'fit', 'width'=>'120', 'height'=>'120']);
         if(config('product.product_images')){
             \Solunes\Master\App\Node::create(['name'=>'product-image', 'type'=>'subchild', 'location'=>'product', 'parent_id'=>$node_product->id]);
+            $image_folder = \Solunes\Master\App\ImageFolder::create(['site_id'=>1, 'name'=>'product-image-image', 'extension'=>'jpg']);
+            \Solunes\Master\App\ImageSize::create(['parent_id'=>$image_folder->id, 'code'=>'normal', 'type'=>'resize', 'width'=>'1000']);
+            \Solunes\Master\App\ImageSize::create(['parent_id'=>$image_folder->id, 'code'=>'thumb', 'type'=>'fit', 'width'=>'200', 'height'=>'200']);
+            \Solunes\Master\App\ImageSize::create(['parent_id'=>$image_folder->id, 'code'=>'detail', 'type'=>'fit', 'width'=>'570', 'height'=>'570']);
+
         }
         if(config('product.product_offers')){
             \Solunes\Master\App\Node::create(['name'=>'product-offer', 'type'=>'subchild', 'location'=>'product', 'parent_id'=>$node_product->id]);
@@ -38,6 +49,7 @@ class MasterSeeder extends Seeder {
             $node_package = \Solunes\Master\App\Node::create(['name'=>'package', 'location'=>'product', 'folder'=>'products']);
             $node_package_product = \Solunes\Master\App\Node::create(['name'=>'package-product', 'type'=>'child', 'location'=>'product', 'parent_id'=>$node_package->id]);
         }
+
         // Usuarios
         $admin = \Solunes\Master\App\Role::where('name', 'admin')->first();
         $member = \Solunes\Master\App\Role::where('name', 'member')->first();
