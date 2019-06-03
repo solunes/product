@@ -52,5 +52,6 @@ return [
     'quantity' => 'Cantidad',
     'value' => 'Valor',
     'variation' => 'Variación',
+    'product_bridge' => 'Puente de Producto',
 
 ];
