@@ -31,7 +31,7 @@ class Product extends Model {
 	public static $rules_create = array(
 		'category_id'=>'required',
         'currency_id'=>'required',
-        //'barcode'=>'required',
+        'delivery_type'=>'required',
         'name'=>'required',
         'active'=>'required',
         'price'=>'required',
@@ -42,7 +42,7 @@ class Product extends Model {
 		'id'=>'required',
         'category_id'=>'required',
         'currency_id'=>'required',
-        //'barcode'=>'required',
+        'delivery_type'=>'required',
         'name'=>'required',
         'active'=>'required',
         'price'=>'required',
