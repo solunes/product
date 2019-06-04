@@ -22,6 +22,7 @@ class ProductSaved
         } else {
             $product_bridge->currency_id = 1;
         }
+        $product_bridge->category_id = $event->category_id;
         $product_bridge->price = $event->price;
         $product_bridge->name = $event->name;
         $image = \Asset::get_image_path('product-image','normal',$event->image);

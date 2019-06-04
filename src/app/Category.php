@@ -54,4 +54,8 @@ class Category extends Model {
         return $this->hasMany('Solunes\Product\App\Product')->where('active', 1);
     }
 
+    public function product_bridges() {
+        return $this->hasMany('Solunes\Business\App\ProductBridge')->where('active', 1);
+    }
+
 }

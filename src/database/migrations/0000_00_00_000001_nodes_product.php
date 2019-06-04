@@ -74,12 +74,16 @@ class NodesProduct extends Migration
         });
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('barcode')->nullable();
-            $table->integer('category_id')->unsigned();
+            if(config('business.product_barcode')){
+                $table->string('barcode')->nullable();
+            }
+            $table->integer('category_id')->nullable();
             $table->string('slug')->nullable();
-            $table->string('product_size')->nullable(); // Retirar y cambiar por variantes
+            //$table->string('product_size')->nullable(); // Retirar y cambiar por variantes
             $table->string('image')->nullable();
-            $table->boolean('printed')->nullable()->default(0);
+            if(config('business.product_barcode')){
+                $table->boolean('printed')->nullable()->default(0);
+            }
             $table->integer('currency_id')->unsigned();
             $table->decimal('weight', 10, 2)->nullable()->default(0);
             $table->decimal('cost', 10, 2)->nullable();
@@ -102,7 +106,6 @@ class NodesProduct extends Migration
                 $table->integer('product_group_id')->nullable();
             }
             $table->timestamps();
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->foreign('currency_id')->references('id')->on('currencies')->onDelete('cascade');
         });
         if(config('product.product_extras')){

@@ -69,7 +69,7 @@ class Product extends Model {
     }
 
     public function product_stocks() {
-        return $this->hasMany('Solunes\Inventory\App\ProductStock', 'parent_id');
+        return $this->hasMany('Solunes\Inventory\App\ProductBridgeStock', 'parent_id');
     }
 
     public function product_images() {
