@@ -5,6 +5,8 @@ return [
 	// GENERAL
 	'after_seed' => true,
 	'product_images' => true,
+	'product_url' => false,
+	'product_sold_content' => false,
 	'product_packages' => false,
 	'product_benefits' => false,
 	'product_groups' => false,

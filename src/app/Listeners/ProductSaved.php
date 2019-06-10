@@ -27,7 +27,14 @@ class ProductSaved
         $product_bridge->name = $event->name;
         $image = \Asset::get_image_path('product-image','normal',$event->image);
         $product_bridge->image = \Asset::upload_image(asset($image),'product-bridge-image');
-        $product_bridge->content = $event->content;
+        $product_bridge->content = $event->description;
+        $product_bridge->delivery_type = $event->delivery_type;
+        if(config('product.product_url')){
+            $product_bridge->product_url = $event->product_url;
+        }
+        if(config('product.sold_content')){
+            $product_bridge->sold_content = $event->sold_content;
+        }
         $product_bridge->active = $event->active;
         if(config('payments.sfv_version')>1||config('payments.discounts')){
             $product_bridge->discount_price = $event->discount_price;

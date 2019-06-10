@@ -100,7 +100,10 @@ class NodesProduct extends Migration
             if(config('solunes.inventory')){
                 $table->boolean('stockable')->nullable()->default(1);
             }
-            $table->enum('delivery_type', ['normal','manual','digital','link'])->default('normal');
+            $table->enum('delivery_type', ['normal','digital'])->nullable()->default('normal');
+            if(config('product.product_url')){
+                $table->string('product_url')->nullable();
+            }
             $table->boolean('active')->default(1);
             if(config('product.product_groups')){
                 $table->integer('product_group_id')->nullable();
@@ -129,6 +132,9 @@ class NodesProduct extends Migration
             $table->string('name')->nullable();
             if(config('product.product_description')){
                 $table->text('description')->nullable();
+            }
+            if(config('product.product_sold_content')){
+                $table->text('sold_content')->nullable();
             }
             if(config('product.product_extra_description')){
                 $table->text('extra_description')->nullable();

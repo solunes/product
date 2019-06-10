@@ -53,5 +53,6 @@ return [
     'value' => 'Valor',
     'variation' => 'Variación',
     'product_bridge' => 'Puente de Producto',
+    'product_url' => 'URL de Producto',
 
 ];
