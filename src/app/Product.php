@@ -49,7 +49,7 @@ class Product extends Model {
 	);
 
     public function category() {
-        return $this->belongsTo('Solunes\Product\App\Category');
+        return $this->belongsTo('Solunes\Business\App\Category');
     }
 
     public function currency() {

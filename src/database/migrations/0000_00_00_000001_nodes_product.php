@@ -50,28 +50,6 @@ class NodesProduct extends Migration
                 $table->foreign('variation_option_id')->references('id')->on('variation_options')->onDelete('cascade');
             });*/
         }
-        Schema::create('categories', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('parent_id')->nullable();
-            $table->integer('level')->nullable();
-            $table->integer('order')->nullable()->default(0);
-            $table->string('slug')->nullable();
-            if(config('product.category_image')){
-                $table->string('image')->nullable();
-            }
-            $table->timestamps();
-        });
-        Schema::create('category_translation', function(Blueprint $table) {
-            $table->increments('id');
-            $table->integer('category_id')->unsigned();
-            $table->string('locale')->index();
-            $table->string('name')->nullable();
-            if(config('product.category_description')){
-                $table->text('description')->nullable();
-            }
-            $table->unique(['category_id','locale']);
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
-        });
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
             if(config('business.product_barcode')){
@@ -265,8 +243,6 @@ class NodesProduct extends Migration
         Schema::dropIfExists('product_groups');
         Schema::dropIfExists('product_translation');
         Schema::dropIfExists('products');
-        Schema::dropIfExists('category_translation');
-        Schema::dropIfExists('categories');
         /*Schema::dropIfExists('variation_option_translation');
         Schema::dropIfExists('variation_options');
         Schema::dropIfExists('variation_translation');

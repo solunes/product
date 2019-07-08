@@ -39,11 +39,11 @@ class Category extends Model {
 	);
 	   
     public function children() {
-        return $this->hasMany('Solunes\Product\App\Category', 'parent_id')->orderBy('order','ASC');
+        return $this->hasMany('Solunes\Business\App\Category', 'parent_id')->orderBy('order','ASC');
     }
 
     public function parent() {
-        return $this->belongsTo('Solunes\Product\App\Category', 'parent_id');
+        return $this->belongsTo('Solunes\Business\App\Category', 'parent_id');
     }
 
     public function variation() {
