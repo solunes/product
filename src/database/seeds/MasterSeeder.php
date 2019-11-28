@@ -20,6 +20,9 @@ class MasterSeeder extends Seeder {
         $node_product = \Solunes\Master\App\Node::create(['name'=>'product', 'location'=>'product', 'folder'=>'products']);
         if(config('product.product_groups')){
             $node_product_group = \Solunes\Master\App\Node::create(['name'=>'product-group', 'location'=>'product', 'folder'=>'products']);
+            if(config('customer.subscriptions')&&config('customer.subscription_products')){
+                \Solunes\Master\App\Node::create(['name'=>'product-group-subscription', 'table_name'=>'product_group_subscription', 'type'=>'field', 'model'=>'\Solunes\Customer\App\Subscription', 'parent_id'=>$node_product_group->id]);
+            }
         }
         if(config('product.product_benefits')){
             $node_product_benefit = \Solunes\Master\App\Node::create(['name'=>'product-benefit', 'type'=>'subchild', 'location'=>'product', 'parent_id'=>$node_product->id]);

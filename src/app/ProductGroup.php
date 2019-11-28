@@ -24,5 +24,9 @@ class ProductGroup extends Model {
 		'id'=>'required',
 		'name'=>'required',
 	);
-	
+	   
+	public function product_group_subscription() {
+        return $this->belongsToMany('Solunes\Customer\App\Subscription','product_group_subscription');
+    }
+
 }

@@ -54,5 +54,7 @@ return [
     'variation' => 'Variación',
     'product_bridge' => 'Puente de Producto',
     'product_url' => 'URL de Producto',
+    'points_price' => 'Precio en Puntos',
+    'points_active' => 'Activo para Puntos',
 
 ];

@@ -83,6 +83,10 @@ class NodesProduct extends Migration
                 $table->string('product_url')->nullable();
             }
             $table->boolean('active')->default(1);
+            if(config('customer.credit_wallet_points')){
+                $table->boolean('points_active')->nullable()->default(0);
+                $table->integer('points_price')->nullable();
+            }
             if(config('product.product_groups')){
                 $table->integer('product_group_id')->nullable();
             }
@@ -133,6 +137,14 @@ class NodesProduct extends Migration
                 $table->unique(['product_group_id','locale']);
                 $table->foreign('product_group_id')->references('id')->on('product_groups')->onDelete('cascade');
             });
+            if(config('customer.subscriptions')&&config('customer.subscription_products')){
+                Schema::create('product_group_subscription', function (Blueprint $table) {
+                    $table->increments('id');
+                    $table->integer('product_group_id')->unsigned();
+                    $table->integer('subscription_id')->nullable();
+                    $table->foreign('product_group_id')->references('id')->on('product_groups')->onDelete('cascade');
+                });
+            }
         }
         /*if(config('product.product_variations')){
             Schema::create('product_variation', function (Blueprint $table) {
@@ -239,6 +251,7 @@ class NodesProduct extends Migration
         Schema::dropIfExists('product_benefit_translation');
         Schema::dropIfExists('product_benefits');
         //Schema::dropIfExists('product_variation');
+        Schema::dropIfExists('product_group_subscription');
         Schema::dropIfExists('product_group_translation');
         Schema::dropIfExists('product_groups');
         Schema::dropIfExists('product_translation');

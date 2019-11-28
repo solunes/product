@@ -44,5 +44,13 @@ return [
     'product_internal_code' => 'Código Interno de Producto',
     'product_serial_number' => 'Número de Serie de Producto',
     'product_sin_code' => 'Código del SIN de Producto',
-
+    'new_price' => 'Nuevo Precio',
+    'product' => 'Producto',
+    'quantity' => 'Cantidad',
+    'value' => 'Valor',
+    'variation' => 'Variación',
+    'product_bridge' => 'Puente de Producto',
+    'product_url' => 'URL de Producto',
+    'points_price' => 'Precio en Puntos',
+    'points_active' => 'Activo para Puntos',
 ];
