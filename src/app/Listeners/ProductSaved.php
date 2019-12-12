@@ -48,6 +48,10 @@ class ProductSaved
         if(config('solunes.inventory')){
             $product_bridge->stockable = $event->stockable;
         }
+        if(config('customer.credit_wallet_points')){
+            $product_bridge->points_active = $event->points_active;
+            $product_bridge->points_price = $event->points_price;
+        }
         $product_bridge->save();
         if(config('solunes.inventory')&&$event->stockable==1){
             $added_variations = 0;
