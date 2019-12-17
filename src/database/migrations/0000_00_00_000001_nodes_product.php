@@ -55,6 +55,9 @@ class NodesProduct extends Migration
             if(config('business.product_barcode')){
                 $table->string('barcode')->nullable();
             }
+            if(config('product.seller_user')){
+                $table->integer('seller_user_id')->nullable();
+            }
             $table->integer('category_id')->nullable();
             $table->string('slug')->nullable();
             //$table->string('product_size')->nullable(); // Retirar y cambiar por variantes

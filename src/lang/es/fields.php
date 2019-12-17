@@ -56,5 +56,6 @@ return [
     'product_url' => 'URL de Producto',
     'points_price' => 'Precio en Puntos',
     'points_active' => 'Activo para Puntos',
+    'seller_user' => 'Punto de Venta',
 
 ];
