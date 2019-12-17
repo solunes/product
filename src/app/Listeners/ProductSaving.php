@@ -12,7 +12,7 @@ class ProductSaving
      * @return void
      */
     public function handle($event) {
-        if(config('product.product_agency')){
+        if(config('product.product_agency')&&!$event->agency_id){
             if(auth()->check()&&$agency_id = auth()->user()->agency_id){
                 $event->agency_id = $agency_id;
             }
