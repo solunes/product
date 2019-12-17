@@ -29,6 +29,9 @@ class ProductSaved
         $product_bridge->image = \Asset::upload_image(asset($image),'product-bridge-image');
         $product_bridge->content = $event->description;
         $product_bridge->delivery_type = $event->delivery_type;
+        if(config('product.product_agency')){
+            $product_bridge->agency_id = $event->agency_id;
+        }
         if(config('product.seller_user')){
             $product_bridge->seller_user_id = $event->seller_user_id;
         }
