@@ -18,6 +18,7 @@ return [
 	'product_description' => true,
 	'product_extra_description' => false,
     'seller_user' => false,
+    'product_agency' => false,
 
 	// CUSTOM FORMS
     'item_get_after_vars' => ['purchase','product'], // array de nodos: 'node'

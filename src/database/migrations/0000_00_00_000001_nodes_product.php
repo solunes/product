@@ -58,6 +58,9 @@ class NodesProduct extends Migration
             if(config('product.seller_user')){
                 $table->integer('seller_user_id')->nullable();
             }
+            if(config('product.product_agency')){
+                $table->integer('agency_id')->nullable();
+            }
             $table->integer('category_id')->nullable();
             $table->string('slug')->nullable();
             //$table->string('product_size')->nullable(); // Retirar y cambiar por variantes

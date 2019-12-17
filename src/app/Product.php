@@ -55,6 +55,10 @@ class Product extends Model {
     public function seller_user() {
         return $this->belongsTo('App\User');
     }
+    
+    public function agency() {
+        return $this->belongsTo('Solunes\Business\App\Agency');
+    }
 
     public function currency() {
         return $this->belongsTo('Solunes\Business\App\Currency');
