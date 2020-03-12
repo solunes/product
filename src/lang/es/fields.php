@@ -57,5 +57,8 @@ return [
     'points_price' => 'Precio en Puntos',
     'points_active' => 'Activo para Puntos',
     'seller_user' => 'Punto de Venta',
+    'agency' => 'Agencia',
+    'product_group' => 'Grupo de Producto',
+    'product_group_subscription' => 'Grupo de Producto Suscripción',
 
 ];

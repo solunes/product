@@ -15,6 +15,7 @@ return [
     'product' => 'Producto|Productos',
     'product-benefit' => 'Beneficio de Producto|Beneficios de Producto',
     'product-group' => 'Grupo de Producto|Grupos de Producto',
+    'product-group-subscription' => 'Suscripción de Grupo de Producto|Suscripciones de Grupo de Producto',
     'product-image' => 'Imagen de Producto|Imágenes de Producto',
     'product-offer' => 'Oferta de Producto|Ofertas de Producto',
     'product-variation' => 'Variación de Producto|Variaciones de Producto',

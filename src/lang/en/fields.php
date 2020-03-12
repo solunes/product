@@ -53,4 +53,8 @@ return [
     'product_url' => 'URL de Producto',
     'points_price' => 'Precio en Puntos',
     'points_active' => 'Activo para Puntos',
+    'agency' => 'Agencia',
+    'product_group' => 'Grupo de Producto',
+    'product_group_subscription' => 'Grupo de Producto Suscripción',
+    
 ];
