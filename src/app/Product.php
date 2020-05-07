@@ -73,11 +73,11 @@ class Product extends Model {
     }
 
     public function product_variation() {
-        return $this->belongsToMany('Solunes\Business\App\Variation', 'product_variation', 'product_id', 'variation_id');
+        return $this->belongsToMany('Solunes\Business\App\Variation', 'product_bridge_variation', 'product_bridge_id', 'variation_id');
     }
 
     public function product_variation_option() {
-        return $this->belongsToMany('Solunes\Business\App\VariationOption', 'product_variation_option', 'product_id', 'variation_option_id');
+        return $this->belongsToMany('Solunes\Business\App\VariationOption', 'product_bridge_variation_option', 'product_bridge_id', 'variation_option_id');
     }
 
     public function product_bridge_variation() {
@@ -168,7 +168,7 @@ class Product extends Model {
 
     public static function boot() {
         static::pivotAttached(function ($model, $relationName, $pivotIds, $pivotIdsAttributes) {
-            if($relationName=='product_bridge_variation'){
+            if($relationName=='product_variation'){
                 $product_bridge_main = $model->product_bridge;
                 foreach($pivotIds as $pivotId){
                     $variation = \Solunes\Business\App\Variation::find($pivotId);
