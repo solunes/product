@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ProductVariation extends Model {
+class ProductBridgeVariation extends Model {
 	
-	protected $table = 'product_variation';
+	protected $table = 'product_bridge_variation';
 	public $timestamps = true;
 
 	/* Creating rules */

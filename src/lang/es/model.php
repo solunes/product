@@ -22,5 +22,6 @@ return [
     'variation' => 'Variación|Variaciones',
     'variation-option' => 'Opción de Variación|Opciones de Variación',
     'product-variation' => 'Variación de Producto|Variaciones de Producto',
+    'product-variation-option' => 'Opción de Variación de Producto|Opciones de Variación de Producto',
 
 ];

@@ -28,7 +28,8 @@ class MasterSeeder extends Seeder {
             $node_product_benefit = \Solunes\Master\App\Node::create(['name'=>'product-benefit', 'type'=>'subchild', 'location'=>'product', 'parent_id'=>$node_product->id]);
         }
         if(config('product.product_variations')){
-            \Solunes\Master\App\Node::create(['name'=>'product-variation', 'table_name'=>'product_variation', 'location'=>'product', 'model'=>'\Solunes\Business\App\Variation', 'type'=>'field', 'parent_id'=>$node_product->id]);
+            \Solunes\Master\App\Node::create(['name'=>'product-variation', 'table_name'=>'product_bridge_variation', 'location'=>'product', 'translation'=>1, 'model'=>'\Solunes\Business\App\Variation', 'type'=>'field', 'parent_id'=>$node_product->id]);
+            \Solunes\Master\App\Node::create(['name'=>'product-variation-option', 'table_name'=>'product_bridge_variation_option', 'location'=>'product',  'translation'=>1, 'model'=>'\Solunes\Business\App\VariationOption', 'type'=>'field', 'parent_id'=>$node_product->id]);
         }
         $image_folder = \Solunes\Master\App\ImageFolder::create(['site_id'=>1, 'name'=>'product-image', 'extension'=>'jpg']);
         \Solunes\Master\App\ImageSize::create(['parent_id'=>$image_folder->id, 'code'=>'normal', 'type'=>'resize', 'width'=>'1000']);

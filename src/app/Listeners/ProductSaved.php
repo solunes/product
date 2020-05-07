@@ -25,6 +25,7 @@ class ProductSaved
         $product_bridge->category_id = $event->category_id;
         $product_bridge->price = $event->price;
         $product_bridge->name = $event->name;
+        $product_bridge->content = $event->description;
         $image = \Asset::get_image_path('product-image','normal',$event->image);
         $product_bridge->image = \Asset::upload_image(asset($image),'product-bridge-image');
         $product_bridge->content = $event->description;
@@ -59,6 +60,10 @@ class ProductSaved
             $product_bridge->points_price = $event->points_price;
         }
         $product_bridge->save();
+        if($product_bridge&&!$event->product_bridge_id){
+            $event->product_bridge_id = $product_bridge->id;
+            $event->save();
+        }
         if(config('solunes.inventory')&&$event->stockable==1){
             $added_variations = 0;
             $agencies = \Solunes\Business\App\Agency::where('stockable', 1)->get();

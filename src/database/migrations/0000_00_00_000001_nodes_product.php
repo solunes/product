@@ -52,6 +52,8 @@ class NodesProduct extends Migration
         }
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('parent_id')->nullable();
+            $table->integer('product_bridge_id')->nullable();
             if(config('business.product_barcode')){
                 $table->string('barcode')->nullable();
             }
@@ -152,18 +154,21 @@ class NodesProduct extends Migration
                 });
             }
         }
-        /*if(config('product.product_variations')){
-            Schema::create('product_variation', function (Blueprint $table) {
+        if(config('product.product_variations')){
+            /*Schema::create('product_variation', function (Blueprint $table) {
                 $table->increments('id');
                 $table->integer('product_id')->unsigned();
                 $table->integer('variation_id')->unsigned();
-                $table->integer('quantity')->nullable();
-                $table->decimal('new_price',10,2)->nullable();
-                $table->string('value')->nullable();
+                $table->integer('product_bridge_id')->nullable();
                 $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
                 $table->foreign('variation_id')->references('id')->on('variations')->onDelete('cascade');
             });
-        }*/
+            Schema::create('product_variation_option', function (Blueprint $table) {
+                $table->increments('id');
+                $table->integer('product_id')->nullable();
+                $table->integer('variation_option_id')->nullable();
+            });*/
+        }
         if(config('product.product_benefits')){
             Schema::create('product_benefits', function (Blueprint $table) {
                 $table->increments('id');
@@ -256,7 +261,8 @@ class NodesProduct extends Migration
         Schema::dropIfExists('product_images');
         Schema::dropIfExists('product_benefit_translation');
         Schema::dropIfExists('product_benefits');
-        //Schema::dropIfExists('product_variation');
+        Schema::dropIfExists('product_variation_option');
+        Schema::dropIfExists('product_variation');
         Schema::dropIfExists('product_group_subscription');
         Schema::dropIfExists('product_group_translation');
         Schema::dropIfExists('product_groups');

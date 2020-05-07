@@ -48,6 +48,10 @@ class Product extends Model {
         'price'=>'required',
 	);
 
+    public function parent() {
+        return $this->belongsTo('Solunes\Product\App\Product');
+    }
+    
     public function category() {
         return $this->belongsTo('Solunes\Business\App\Category');
     }
@@ -69,7 +73,19 @@ class Product extends Model {
     }
 
     public function product_variation() {
-        return $this->belongsToMany('Solunes\Business\App\Variation', 'product_variation', 'product_id', 'variation_id')->withPivot('product_bridge_id','quantity','new_price','value');
+        return $this->belongsToMany('Solunes\Business\App\Variation', 'product_variation', 'product_id', 'variation_id');
+    }
+
+    public function product_variation_option() {
+        return $this->belongsToMany('Solunes\Business\App\VariationOption', 'product_variation_option', 'product_id', 'variation_option_id');
+    }
+
+    public function product_bridge_variation() {
+        return $this->belongsToMany('Solunes\Business\App\Variation', 'product_bridge_variation', 'product_bridge_id', 'variation_id');
+    }
+
+    public function product_bridge_variation_option() {
+        return $this->belongsToMany('Solunes\Business\App\VariationOption', 'product_bridge_variation_option', 'product_bridge_id', 'variation_option_id');
     }
 
     public function product_benefits() {
@@ -152,19 +168,20 @@ class Product extends Model {
 
     public static function boot() {
         static::pivotAttached(function ($model, $relationName, $pivotIds, $pivotIdsAttributes) {
-            if($relationName=='product_variation'){
+            if($relationName=='product_bridge_variation'){
                 $product_bridge_main = $model->product_bridge;
                 foreach($pivotIds as $pivotId){
                     $variation = \Solunes\Business\App\Variation::find($pivotId);
-                    foreach($variation->variation_options as $variation_option){
-                      if($variation->stockable){
-                        $product_bridge = \Solunes\Business\App\ProductBridge::where('product_type','product')->where('product_id', $product_bridge_main->product_id)->where('variation_id', $variation->id)->where('variation_option_id', $variation_option->id)->first();
+                    foreach($variation->default_variation_options as $variation_option){
+                      /*if($variation->stockable){
+                        $product_bridge = \Solunes\Business\App\ProductBridge::where('product_type','product')->where('product_id', $product_bridge_main->product_id)->first();
                         if(!$product_bridge){
                             $product_bridge = new \Solunes\Business\App\ProductBridge;
                             $product_bridge->product_type = 'product';
                             $product_bridge->product_id = $product_bridge_main->product_id;
-                            $product_bridge->variation_id = $variation->id;
-                            $product_bridge->variation_option_id = $variation_option->id;
+                            //$product_bridge->variation_code = $variation->id;
+                            //$product_bridge->variation_id = $variation->id;
+                            //$product_bridge->variation_option_id = $variation_option->id;
                             $product_bridge->product_bridge_parent_id = $product_bridge_main->id;
                         }
                         $product_bridge->currency_id = $product_bridge_main->currency_id;
@@ -187,6 +204,7 @@ class Product extends Model {
                             $product_bridge->stockable = $product_bridge_main->stockable;
                         }
                         $product_bridge->save();
+                        $product_bridge->product_bridge_variation()->sync( [$variation->id=>['product_id'=>$product_bridge_main->product_id]]);
                         if(config('solunes.inventory')&&$product_bridge_main->stockable==1){
                             $added_variations = 0;
                             $agencies = \Solunes\Business\App\Agency::where('stockable', 1)->get();
@@ -194,17 +212,18 @@ class Product extends Model {
                                 \Inventory::increase_inventory($agency, $product_bridge, 0);
                             }
                         }
-                      } else {
-                        $product_bridge = $product_bridge_main;
+                      } else {*/
+                        /*$product_bridge = $product_bridge_main;
                         if(!\Solunes\Business\App\ProductBridgeVariationOption::where('product_bridge_id', $product_bridge->id)->where('variation_id', $variation->id)->where('variation_option_id', $variation_option->id)->first()){
                           $pb_variation_option = new \Solunes\Business\App\ProductBridgeVariationOption;
                           $pb_variation_option->product_bridge_id = $product_bridge->id;
                           $pb_variation_option->variation_id = $variation->id;
                           $pb_variation_option->variation_option_id = $variation_option->id;
                           $pb_variation_option->save();
-                        }
-                      }
-                      $model->product_variation()->updateExistingPivot($pivotId, ['product_bridge_id'=>$product_bridge_main->id]);
+                        }*/
+                      //}
+                      //$model->product_variation()->updateExistingPivot($pivotId, ['product_bridge_id'=>$product_bridge_main->id]);
+                      //$model->product_bridge_variation()->updateExistingPivot($pivotId, ['product_bridge_id'=>$product_bridge_main->id]);
                     }
                 }
                 if(config('solunes.inventory')){
