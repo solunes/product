@@ -60,8 +60,8 @@ return [
     'agency' => 'Agencia',
     'product_group' => 'Grupo de Producto',
     'product_group_subscription' => 'Grupo de Producto Suscripción',
-    'product_bridge_variation' => 'Varaición de Producto',
-    'product_bridge_variation_option' => 'Opción de Varaición de Producto',
-    'variation_option' => 'Opción´de Variación',
+    'product_bridge_variation' => 'Variación de Producto',
+    'product_bridge_variation_option' => 'Opción de Variación de Producto',
+    'variation_option' => 'Opción de Variación',
 
 ];
