@@ -54,6 +54,9 @@ class ProductSaved
         }
         if(config('solunes.inventory')){
             $product_bridge->stockable = $event->stockable;
+            if(config('inventory.basic_inventory')){
+                $product_bridge->quantity = $event->quantity;
+            }
         }
         if(config('customer.credit_wallet_points')){
             $product_bridge->points_active = $event->points_active;

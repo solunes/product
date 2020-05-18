@@ -85,6 +85,9 @@ class NodesProduct extends Migration
             }
             if(config('solunes.inventory')){
                 $table->boolean('stockable')->nullable()->default(1);
+                if(config('inventory.basic_inventory')){
+                    $table->integer('quantity')->nullable()->default(1);
+                }
             }
             $table->enum('delivery_type', ['normal','digital'])->nullable()->default('normal');
             if(config('product.product_url')){
