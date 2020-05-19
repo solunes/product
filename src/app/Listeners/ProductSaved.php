@@ -67,7 +67,7 @@ class ProductSaved
             $event->product_bridge_id = $product_bridge->id;
             $event->save();
         }
-        if(config('solunes.inventory')&&$event->stockable==1){
+        if(config('solunes.inventory')&&config('inventory.basic_inventory')&&$event->stockable==1){
             $added_variations = 0;
             $agencies = \Solunes\Business\App\Agency::where('stockable', 1)->get();
             foreach($agencies as $agency){
