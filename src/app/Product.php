@@ -67,6 +67,10 @@ class Product extends Model {
     public function currency() {
         return $this->belongsTo('Solunes\Business\App\Currency');
     }
+    
+    public function brand() {
+        return $this->belongsTo('Solunes\Business\App\Brand');
+    }
 
     public function product_group() {
         return $this->belongsTo('Solunes\Product\App\ProductGroup');
