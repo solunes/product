@@ -92,6 +92,13 @@ class Product extends Model {
         return $this->belongsToMany('Solunes\Business\App\VariationOption', 'product_bridge_variation_option', 'product_bridge_id', 'variation_option_id');
     }
 
+    public function product_bridge_channel() {
+        return $this->belongsToMany('Solunes\Business\App\Channel', 'product_bridge_channel', 'product_bridge_id', 'channel_id');
+    }
+
+    public function product_channel() {
+        return $this->belongsToMany('Solunes\Business\App\Channel', 'product_bridge_channel', 'product_bridge_id', 'channel_id');
+    }
     public function product_benefits() {
         return $this->hasMany('Solunes\Product\App\ProductBenefit', 'parent_id');
     }
