@@ -77,28 +77,29 @@ class Product extends Model {
     }
 
     public function product_variation() {
-        return $this->belongsToMany('Solunes\Business\App\Variation', 'product_bridge_variation', 'product_bridge_id', 'variation_id');
-    }
-
-    public function product_variation_option() {
-        return $this->belongsToMany('Solunes\Business\App\VariationOption', 'product_bridge_variation_option', 'product_bridge_id', 'variation_option_id');
+        return $this->belongsToMany('Solunes\Business\App\Variation', 'product_bridge_variation', 'product_id', 'variation_id');
     }
 
     public function product_bridge_variation() {
-        return $this->belongsToMany('Solunes\Business\App\Variation', 'product_bridge_variation', 'product_bridge_id', 'variation_id');
+        return $this->belongsToMany('Solunes\Business\App\Variation', 'product_bridge_variation', 'product_id', 'variation_id')->withPivot('product_bridge_id');
+    }
+
+    public function product_variation_option() {
+        return $this->belongsToMany('Solunes\Business\App\VariationOption', 'product_bridge_variation_option', 'product_id', 'variation_option_id');
     }
 
     public function product_bridge_variation_option() {
-        return $this->belongsToMany('Solunes\Business\App\VariationOption', 'product_bridge_variation_option', 'product_bridge_id', 'variation_option_id');
-    }
-
-    public function product_bridge_channel() {
-        return $this->belongsToMany('Solunes\Business\App\Channel', 'product_bridge_channel', 'product_bridge_id', 'channel_id');
+        return $this->belongsToMany('Solunes\Business\App\VariationOption', 'product_bridge_variation_option', 'product_id', 'variation_option_id')->withPivot('product_bridge_id');
     }
 
     public function product_channel() {
-        return $this->belongsToMany('Solunes\Business\App\Channel', 'product_bridge_channel', 'product_bridge_id', 'channel_id');
+        return $this->belongsToMany('Solunes\Business\App\Channel', 'product_bridge_channel', 'product_id', 'channel_id');
     }
+
+    public function product_bridge_channel() {
+        return $this->belongsToMany('Solunes\Business\App\Channel', 'product_bridge_channel', 'product_id', 'channel_id')->withPivot('product_bridge_id');
+    }
+
     public function product_benefits() {
         return $this->hasMany('Solunes\Product\App\ProductBenefit', 'parent_id');
     }
@@ -179,11 +180,16 @@ class Product extends Model {
 
     public static function boot() {
         static::pivotAttached(function ($model, $relationName, $pivotIds, $pivotIdsAttributes) {
-            if($relationName=='product_variation'){
+            if($relationName=='product_bridge_variation_option'){
+                $product_bridge_main = $model->product_bridge;
+                \Log::info('pivotIds: '.json_encode($pivotIds));
+                \Log::info('pivotIdsAttributes: '.json_encode($pivotIdsAttributes));
+            }
+            /*if($relationName=='product_variation'){
                 $product_bridge_main = $model->product_bridge;
                 foreach($pivotIds as $pivotId){
                     $variation = \Solunes\Business\App\Variation::find($pivotId);
-                    foreach($variation->default_variation_options as $variation_option){
+                    foreach($variation->default_variation_options as $variation_option){*/
                       /*if($variation->stockable){
                         $product_bridge = \Solunes\Business\App\ProductBridge::where('product_type','product')->where('product_id', $product_bridge_main->product_id)->first();
                         if(!$product_bridge){
@@ -235,15 +241,15 @@ class Product extends Model {
                       //}
                       //$model->product_variation()->updateExistingPivot($pivotId, ['product_bridge_id'=>$product_bridge_main->id]);
                       //$model->product_bridge_variation()->updateExistingPivot($pivotId, ['product_bridge_id'=>$product_bridge_main->id]);
-                    }
-                }
-                if(config('solunes.inventory')){
+                    /*}
+                }*/
+                /*if(config('solunes.inventory')){
                     $agencies = \Solunes\Business\App\Agency::where('stockable', 1)->get();
                     foreach($agencies as $agency){
                         \Inventory::increase_inventory($agency, $product_bridge_main, 0);
                     }
-                }
-            }
+                }*/
+            //}
 
         });
     }
