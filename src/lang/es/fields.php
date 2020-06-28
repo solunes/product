@@ -63,5 +63,6 @@ return [
     'product_bridge_variation' => 'Variación de Producto',
     'product_bridge_variation_option' => 'Opción de Variación de Producto',
     'variation_option' => 'Opción de Variación',
+    'product_bridge_channel' => 'Canales de Venta',
 
 ];

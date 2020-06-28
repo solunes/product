@@ -21,7 +21,7 @@ class MasterSeeder extends Seeder {
         if(config('product.product_groups')){
             $node_product_group = \Solunes\Master\App\Node::create(['name'=>'product-group', 'location'=>'product', 'folder'=>'products']);
             if(config('customer.subscriptions')&&config('customer.subscription_products')){
-                \Solunes\Master\App\Node::create(['name'=>'product-group-subscription', 'table_name'=>'product_group_subscription', 'type'=>'field', 'model'=>'\Solunes\Customer\App\Subscription', 'parent_id'=>$node_product_group->id]);
+                \Solunes\Master\App\Node::create(['name'=>'product-group-subscription', 'table_name'=>'product_group_subscription', 'location'=>'product', 'type'=>'field', 'model'=>'\Solunes\Customer\App\Subscription', 'parent_id'=>$node_product_group->id]);
             }
         }
         if(config('product.product_benefits')){
@@ -32,7 +32,7 @@ class MasterSeeder extends Seeder {
             \Solunes\Master\App\Node::create(['name'=>'product-variation-option', 'table_name'=>'product_bridge_variation_option', 'location'=>'product',  'translation'=>1, 'model'=>'\Solunes\Business\App\VariationOption', 'type'=>'field', 'parent_id'=>$node_product->id]);
         }
         if(config('business.channels')){
-            \Solunes\Master\App\Node::create(['name'=>'product-channel', 'table_name'=>'product_bridge_channel', 'location'=>'business',  'translation'=>1, 'model'=>'\Solunes\Business\App\Channel', 'type'=>'field', 'parent_id'=>$node_product->id]);
+            \Solunes\Master\App\Node::create(['name'=>'product-channel', 'table_name'=>'product_bridge_channel', 'location'=>'product',  'translation'=>1, 'model'=>'\Solunes\Business\App\Channel', 'type'=>'field', 'parent_id'=>$node_product->id]);
         }
         $image_folder = \Solunes\Master\App\ImageFolder::create(['site_id'=>1, 'name'=>'product-image', 'extension'=>'jpg']);
         \Solunes\Master\App\ImageSize::create(['parent_id'=>$image_folder->id, 'code'=>'normal', 'type'=>'resize', 'width'=>'1000']);

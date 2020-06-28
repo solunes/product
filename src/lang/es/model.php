@@ -23,5 +23,8 @@ return [
     'variation-option' => 'Opción de Variación|Opciones de Variación',
     'product-variation' => 'Variación de Producto|Variaciones de Producto',
     'product-variation-option' => 'Opción de Variación de Producto|Opciones de Variación de Producto',
+    'product-channel' => 'Canal de Venta de Producto|Canales de Venta de Producto',
+    'subscription' => 'Suscripción|Suscripciones',
+    'channel' => 'Canal|Canales',
 
 ];
