@@ -30,6 +30,7 @@ class ProductSaved
         $product_bridge->image = \Asset::upload_image(asset($image),'product-bridge-image');
         $product_bridge->content = $event->description;
         $product_bridge->delivery_type = $event->delivery_type;
+        $product_bridge->weight = $event->weight;
         if(config('business.product_barcode')){
             $product_bridge->barcode = $event->barcode;
         }
