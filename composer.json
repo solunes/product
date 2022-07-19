@@ -27,7 +27,7 @@
             "src/app/Routes",
             "src/app/Providers",
             "src/app/Controllers",
-            "src/app/Exceptions"
+            "src/app/Console"
        ],
         "psr-4": {
             "Solunes\\Product\\": "src/"
